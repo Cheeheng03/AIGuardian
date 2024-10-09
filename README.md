@@ -94,5 +94,5 @@ This project uses cutting-edge blockchain and AI technology to detect deepfake i
 
 ## Links
 
-1. AIGuardian landing page: https://ai-guardian.vercel.app/
+1. AIGuardian landing page: https://radar-ai-guardian.vercel.app/
 2. Deepfake detection ICP frontend canisters: https://cqqh4-4yaaa-aaaah-qds4a-cai.icp0.io/
