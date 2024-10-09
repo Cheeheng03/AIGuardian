@@ -38,7 +38,7 @@ const MonitoringSection = () => {
         <div className="bg-gray-800 p-4 rounded-lg">
           <div
             className="h-64 bg-gray-700 rounded-lg border-2 border-gray-400 border-dashed cursor-pointer"
-            onClick={() => handleVideoClick("/assets/videos/reportvideo.mp4")}
+            onClick={() => handleVideoClick("/assets/videos/vid2.mp4")}
           >
             {isClient && (
               <video
