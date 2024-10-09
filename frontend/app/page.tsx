@@ -15,7 +15,7 @@ import ActionSteps from "@/app/landing-components/ActionSteps";
 import TechStacks from "@/app/landing-components/TechStacks";
 import { useRouter } from "next/navigation";
 import { Toaster } from "react-hot-toast";
-import { PublicKey } from "@solana/web3.js";
+import { Connection, clusterApiUrl, PublicKey } from "@solana/web3.js"; // Import Connection and clusterApiUrl
 
 declare global {
   interface Window {
@@ -27,6 +27,7 @@ const LandingPage = () => {
   const [address, setAddress] = useState<string | null>(null); // State to store connected wallet address
   const [error, setError] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false); // State to control dialog visibility
+  const [connection, setConnection] = useState<Connection | null>(null); // State to store the Solana connection
   const router = useRouter(); // Next.js router for navigation
 
   // Function to connect to the Phantom wallet
@@ -78,7 +79,22 @@ const LandingPage = () => {
     if (savedAddress) {
       setAddress(savedAddress);
     }
+
+    // Set up the connection to Solana's devnet
+    const connection = new Connection(clusterApiUrl("devnet"), "confirmed"); // Connecting to the Solana devnet
+    setConnection(connection);
   }, []);
+
+  // Function to get the wallet balance (example usage of connection)
+  const getBalance = async () => {
+    if (connection && address) {
+      const publicKey = new PublicKey(address);
+      const balance = await connection.getBalance(publicKey);
+      alert(`Balance: ${balance / 1e9} SOL`); // Convert lamports to SOL
+    } else {
+      setError("Unable to fetch balance. Please connect wallet.");
+    }
+  };
 
   return (
     <div className="bg-black text-white min-h-screen min-w-screen">
@@ -110,6 +126,15 @@ const LandingPage = () => {
                 : "Connect Phantom"}
             </Button>
           </div>
+          {/* Button to get balance */}
+          {/* {address && (
+            <Button
+              className="ml-4 bg-green-500 hover:bg-green-400 text-black"
+              onClick={getBalance}
+            >
+              Get Balance
+            </Button>
+          )} */}
         </nav>
       </header>
 
@@ -158,7 +183,7 @@ const LandingPage = () => {
               target="_blank"
               className="text-orange-300 hover:underline"
             >
-              ETHKL2024
+              Solana Radar Hackathon Malaysia Side Track
             </a>
           </p>
           <p>© 2024 AIGuardian</p>
