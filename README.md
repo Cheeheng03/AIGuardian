@@ -32,8 +32,6 @@ The unique combination of on-chain AI-powered deepfake detection and originality
 
 - Personal Integrity is Protected: Deepfake detection allows individuals to safeguard their reputation through tagging manipulated images in real-time.
 
-- Sybil Resistance: World ID verification prevents Sybil attacks, where a user creates multiple fake identities. This ensures that a single verified individual cannot create multiple accounts to upload misleading content.
-  
 - Transparency is Guaranteed: Once deepfake or originality checks are performed, the results are stored immutably on the blockchain, providing an unalterable record.
   
 - Cross-Chain Compatibility: The toolkit operates across and supports all EVM blockchains, making it scalable and applicable to a wide array of social media platforms.
@@ -54,11 +52,12 @@ This project uses cutting-edge blockchain and AI technology to detect deepfake i
 - Languages: TypeScript, Javascript
 - Framework: Next.js
 - Styling: TailwindCSS, Google Fonts
-
-### Web3 Development
-- Smart Contracts: Solidity
-- Blockchain Frameworks: Thirdweb, Web3.js, Ethers.js
-- Networks: Scroll Sepolia Testnet, Manta Sepolia Testnet
+  
+  ### Web3 Development
+- Smart Contracts: Rust
+- Blockchain Frameworks: Thirdweb, Web3.js, Solana Web3.js
+- Wallets: Phantom Wallet
+- IPFS: Pinata IPFS
 
 ### On-Chain AI
 - Pre-trained mobilenet_v2 deepfake detection algorithm, trained on Kaggle dataset.
@@ -69,15 +68,10 @@ This project uses cutting-edge blockchain and AI technology to detect deepfake i
 
 ## Smart Contract Addresses:
 
-### Scroll Sepolia Testnet:
-- [originality.sol](https://sepolia.scrollscan.com/address/0x109e8B75b04919Cb2838691C1a06Eed403FBc40b): `0x109e8B75b04919Cb2838691C1a06Eed403FBc40b` Verified ✅
-- [deepfakestorage.sol](https://sepolia.scrollscan.com/address/0x0521D794F9bdeEdE71D2B6EF749da7d393a9a7aB): `0x0521D794F9bdeEdE71D2B6EF749da7d393a9a7aB` Verified ✅
-- [twitterpost.sol](https://sepolia.scrollscan.com/address/0x21270553C12c14E4B96138Cd31eB09176F12F2ce): `0x21270553C12c14E4B96138Cd31eB09176F12F2ce` Verified ✅
-
-### Manta Sepolia Testnet:
-- [originality.sol](https://manta-sepolia.explorer.caldera.xyz/address/0x079CF630a623Bc12E4451ACe7cdD72F49B6977F3): `0x079CF630a623Bc12E4451ACe7cdD72F49B6977F3`
-- [deepfakestorage.sol](https://manta-sepolia.explorer.caldera.xyz/address/0x2a662D2Fa3553C2849151b44Ea3fe2Ec3579f1f7): `0x2a662D2Fa3553C2849151b44Ea3fe2Ec3579f1f7`
-- [twitterpost.sol](https://manta-sepolia.explorer.caldera.xyz/address/0x69668FF363fFA1D0832654748158165a0cD42615): `0x69668FF363fFA1D0832654748158165a0cD42615`
+### Solana Testnet:
+- [originality.sol](https://explorer.solana.com/address/4CAZ7URST3D1yMU968iZtEEerN4TCZW2eKDvDWqHSZvE): `4CAZ7URST3D1yMU968iZtEEerN4TCZW2eKDvDWqHSZvE`
+- [deepfakestorage.sol](https://explorer.solana.com/address/Aqyqt3mnUVMDErUPvQm9e4LDWHHtJKpLXsBhkumbk6L2): `Aqyqt3mnUVMDErUPvQm9e4LDWHHtJKpLXsBhkumbk6L2`
+- [twitterpost.sol](https://explorer.solana.com/address/AfCDBjnYCyHh7Hb9YiKx8NVQXA7dFfaaY5yFFF8DabJb): `AfCDBjnYCyHh7Hb9YiKx8NVQXA7dFfaaY5yFFF8DabJb`
 
 ### ICP Canister Address
 - [Frontend canister via browser](https://cqqh4-4yaaa-aaaah-qds4a-cai.icp0.io/): `https://cqqh4-4yaaa-aaaah-qds4a-cai.icp0.io/`
