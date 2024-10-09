@@ -15,7 +15,7 @@ import ActionSteps from "@/app/landing-components/ActionSteps";
 import TechStacks from "@/app/landing-components/TechStacks";
 import { useRouter } from "next/navigation";
 import { Toaster } from "react-hot-toast";
-import { PublicKey, Connection, clusterApiUrl } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 
 declare global {
   interface Window {
@@ -37,7 +37,10 @@ const LandingPage = () => {
         try {
           // Request wallet connection
           const response = await provider.connect();
-          setAddress(response.publicKey.toString());
+          const publicKey = response.publicKey.toString();
+          setAddress(publicKey);
+          sessionStorage.setItem("walletAddress", publicKey); // Store in sessionStorage to remember the connected wallet
+          sessionStorage.setItem("hasConnected", "true");
           setError(null); // Clear any previous errors
         } catch (err: any) {
           if (
@@ -57,15 +60,7 @@ const LandingPage = () => {
     }
   };
 
-  // Check if Phantom is already connected
-  useEffect(() => {
-    if (window.solana?.isPhantom) {
-      window.solana.connect({ onlyIfTrusted: true }).then((response: any) => {
-        setAddress(response.publicKey.toString());
-      });
-    }
-  }, []);
-
+  // Handle demo button click
   const handleDemoClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault(); // Stop the default anchor behavior immediately
     const hasConnected = sessionStorage.getItem("hasConnected");
@@ -77,16 +72,12 @@ const LandingPage = () => {
     }
   };
 
-  // Automatically connect Phantom Wallet if it's already connected
+  // If the wallet address is saved in sessionStorage, use it to restore the address after page refresh
   useEffect(() => {
-    const checkConnection = async () => {
-      const savedAddress = sessionStorage.getItem("walletAddress");
-      if (savedAddress) {
-        setAddress(savedAddress);
-      }
-    };
-
-    checkConnection();
+    const savedAddress = sessionStorage.getItem("walletAddress");
+    if (savedAddress) {
+      setAddress(savedAddress);
+    }
   }, []);
 
   return (
@@ -112,7 +103,7 @@ const LandingPage = () => {
           <div>
             <Button
               className="bg-orange-300 text-black hover:bg-orange-300 text-base md:text-xl md:px-8 md:py-6 px-6 py-4 w-full sm:w-[170px]rounded-sm font-neue-machina"
-              onClick={connectWallet} // Connect to Phantom Wallet
+              onClick={connectWallet} // Connect to Phantom Wallet when the button is clicked
             >
               {address
                 ? `${address.slice(0, 6)}...${address.slice(-4)}`
