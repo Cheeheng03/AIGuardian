@@ -69,7 +69,7 @@ const LandingPage = () => {
     if (!hasConnected) {
       setIsDialogOpen(true); // Open the dialog prompting the user to connect Phantom
     } else {
-      router.push("/login"); // Navigate to the demo page if Phantom is connected
+      router.push("/demo"); // Navigate to the demo page if Phantom is connected
     }
   };
 

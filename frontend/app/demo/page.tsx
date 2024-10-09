@@ -3,20 +3,26 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { useWallet } from "../WalletContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrashAlt,
-  faBan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faBan } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import { Contract } from "ethers";
-import { tweeterpostAddress, tweeterpostABI } from "../contractsABI/tweeterpost";
-import { deepfakestorageAddress, deepfakestorageABI } from "../contractsABI/deepfakestorage";
-import { originalityAddress, originalityABI } from "../contractsABI/originality";
+import {
+  tweeterpostAddress,
+  tweeterpostABI,
+} from "../contractsABI/tweeterpost";
+import {
+  deepfakestorageAddress,
+  deepfakestorageABI,
+} from "../contractsABI/deepfakestorage";
+import {
+  originalityAddress,
+  originalityABI,
+} from "../contractsABI/originality";
 import { uploadImageToIPFS } from "../ipfsUploader";
 import "react-toastify/dist/ReactToastify.css";
 import LeftSidebar from "../demo-components/left-sidebar";
 import RightSidebar from "../demo-components/right-sidebar";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "react-hot-toast";
 import {
   ImageIcon,
   GifIcon,
@@ -162,18 +168,18 @@ export default function Home() {
 
       setTweets(formattedPosts);
     } catch (error) {
-      console.error("Error fetching posts:", error);
-      toast.error("Failed to fetch posts from the blockchain.");
+      // console.error("Error fetching posts:", error);
+      // toast.error("Failed to fetch posts from the blockchain.");
     }
   };
 
   useEffect(() => {
     // Check if walletAddress and worldId exist in sessionStorage
     const storedWalletAddress = sessionStorage.getItem("walletAddress");
-    const storedWorldId = sessionStorage.getItem("worldId");
+    // const storedWorldId = sessionStorage.getItem("worldId");
 
     // If walletAddress and worldId exist, trigger wallet connection and auto-fetch posts
-    if (storedWalletAddress && storedWorldId) {
+    if (storedWalletAddress) {
       (async () => {
         await connectWallet(); // Ensure wallet is connected before fetching
         if (signer) {
@@ -301,12 +307,13 @@ export default function Home() {
         return;
       }
 
-      const storedWorldId = sessionStorage.getItem("worldId");
-
+      // Assign a dummy worldId if not available
+      let storedWorldId = sessionStorage.getItem("worldId");
       if (!storedWorldId) {
-        toast.error("World ID not found. Please sign in with World ID first.");
-        return;
+        storedWorldId = "dummy-world-id"; // Use a placeholder or dummy value
+        console.log("Using dummy World ID:", storedWorldId);
       }
+
       const postContract = new Contract(
         tweeterpostAddress,
         tweeterpostABI,
@@ -316,16 +323,17 @@ export default function Home() {
         ipfsHash,
         imageHash,
         content,
-        storedWorldId
-      ); // Include worldId here
-      await transaction.wait();
+        storedWorldId // Include worldId here, even if it's a dummy one
+      );
 
+      await transaction.wait();
       console.log("Post created on blockchain:", {
         ipfsHash,
         imageHash,
         content,
         storedWorldId,
       });
+
       toast.success("Post created successfully on the blockchain!");
     } catch (error) {
       console.error("Error creating post on the blockchain:", error);
@@ -527,7 +535,9 @@ export default function Home() {
           const uint8Array = new Uint8Array(arrayBuffer);
           const result = await checkDeepfake(uint8Array);
           setDeepfakeValue(result !== undefined ? result : 0);
-          toast.success(result === 1 ? "Deepfake detected!" : "Authentic image!");
+          toast.success(
+            result === 1 ? "Deepfake detected!" : "Authentic image!"
+          );
         } catch (error) {
           console.error("Error converting image file:", error);
         }
@@ -547,7 +557,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-nowrap">
       <LeftSidebar />
-      
+
       <div className="flex-grow">
         <div className="bg-black p-4 pt-0 border-y-2 border-gray-700 w-full">
           <div className="flex justify-between mt-4 mb-4">
@@ -690,7 +700,9 @@ export default function Home() {
 
         <div>
           {tweets.length === 0 ? (
-            <p className="text-center text-gray-400 font-neue-machina font-light pt-12">No posts yet.</p>
+            <p className="text-center text-gray-400 font-neue-machina font-light pt-12">
+              No posts yet.
+            </p>
           ) : (
             tweets.map((tweet, index) => (
               <div
