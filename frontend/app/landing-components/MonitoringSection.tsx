@@ -21,7 +21,7 @@ const MonitoringSection = () => {
     <div className="flex flex-col md:flex-row justify-between items-center border-[8px] border-gray-400 border-dashed rounded-xl p-14 sm:p-24 w-full">
       <div className="w-full sm:w-3/4 md:w-1/2 pr-12">
         <h3 className="text-4xl mb-4 font-neue-machina font-light uppercase">
-          Detect Deepfakes and Unauthentic Content.      </h3>
+          Detect Deepfakes and Unauthentic Content.</h3>
 
         <p className="font-neue-machina font-semibold text-lg my-4 text-orange-300">Take control of content integrity on social media. Empower yourself to maintain the truth in your hands.</p>
 
@@ -43,7 +43,7 @@ const MonitoringSection = () => {
             {isClient && (
               <video
                 ref={video1Ref}
-                src="/assets/videos/reportvideo.mp4" // Path to your placeholder video
+                src="/assets/videos/vid2.mp4" // Path to your placeholder video
                 className="w-full h-full object-cover"
                 autoPlay
                 loop

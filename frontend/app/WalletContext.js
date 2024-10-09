@@ -1,74 +1,60 @@
 "use client";
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { BrowserProvider } from 'ethers';
 
 const WalletContext = createContext();
 
 export const WalletProvider = ({ children }) => {
   const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
-  const [address, setAddress] = useState(null);
+  const [publicKey, setPublicKey] = useState(null); // Public key of connected Phantom wallet
+  const [error, setError] = useState(null);
 
+  // Function to connect Phantom wallet
   const connectWallet = async () => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (window.solana && window.solana.isPhantom) {
       try {
-        // Request user to connect wallet
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const provider = new BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
-        const address = await signer.getAddress();
-
-        setProvider(provider);
-        setSigner(signer);
-        setAddress(address);
-      } catch (error) {
-        console.error('Failed to connect wallet:', error);
-        alert('Wallet connection failed. Please check MetaMask.');
+        const response = await window.solana.connect();
+        const pubKey = response.publicKey.toString();
+        setProvider(window.solana);
+        setPublicKey(pubKey);
+        sessionStorage.setItem("walletAddress", pubKey);
+        setError(null);
+      } catch (err) {
+        if (err.code === 4001 || err.message === "User rejected the request.") {
+          setError("You rejected the connection request.");
+        } else {
+          setError("Failed to connect to the wallet.");
+        }
       }
     } else {
-      console.error('MetaMask is not installed');
-      alert('MetaMask is not installed. Please install MetaMask.');
+      setError("Phantom wallet is not detected. Please install it.");
     }
   };
 
   const disconnectWallet = () => {
     setProvider(null);
-    setSigner(null);
-    setAddress(null);
+    setPublicKey(null);
+    sessionStorage.removeItem("walletAddress");
   };
 
   useEffect(() => {
-    const handleAccountsChanged = (accounts) => {
-      if (accounts.length === 0) {
-        disconnectWallet();
-      } else {
-        connectWallet();
-      }
-    };
-
-    const handleChainChanged = () => {
-      // Reload the page when network is changed
-      window.location.reload();
-    };
-
-    if (typeof window.ethereum !== 'undefined') {
-      // Listen for account changes
-      window.ethereum.on('accountsChanged', handleAccountsChanged);
-
-      // Listen for network changes
-      window.ethereum.on('chainChanged', handleChainChanged);
+    const savedAddress = sessionStorage.getItem("walletAddress");
+    if (savedAddress) {
+      setPublicKey(savedAddress);
     }
 
-    return () => {
-      if (typeof window.ethereum !== 'undefined') {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
-      }
-    };
+    if (window.solana && window.solana.isPhantom) {
+      window.solana.on('connect', () => connectWallet());
+      window.solana.on('disconnect', disconnectWallet);
+
+      return () => {
+        window.solana.removeListener('connect', connectWallet);
+        window.solana.removeListener('disconnect', disconnectWallet);
+      };
+    }
   }, []);
 
   return (
-    <WalletContext.Provider value={{ provider, signer, address, connectWallet, disconnectWallet }}>
+    <WalletContext.Provider value={{ provider, publicKey, connectWallet, disconnectWallet, error }}>
       {children}
     </WalletContext.Provider>
   );

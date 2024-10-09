@@ -1,0 +1,197 @@
+{
+  "address": "4CAZ7URST3D1yMU968iZtEEerN4TCZW2eKDvDWqHSZvE",
+  "metadata": {
+    "name": "originality_storage",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "get_originality",
+      "discriminator": [
+        111,
+        123,
+        248,
+        192,
+        210,
+        7,
+        250,
+        51
+      ],
+      "accounts": [
+        {
+          "name": "originality_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "image_hash",
+          "type": "string"
+        }
+      ],
+      "returns": "bool"
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "originality_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "store_originality",
+      "discriminator": [
+        221,
+        157,
+        216,
+        201,
+        113,
+        154,
+        70,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "originality_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "image_hash",
+          "type": "string"
+        },
+        {
+          "name": "originality",
+          "type": "bool"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "OriginalityAccount",
+      "discriminator": [
+        241,
+        210,
+        159,
+        239,
+        124,
+        13,
+        175,
+        133
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "OriginalityStored",
+      "discriminator": [
+        63,
+        176,
+        232,
+        206,
+        115,
+        34,
+        151,
+        17
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "ImageNotFound",
+      "msg": "Image not found"
+    },
+    {
+      "code": 6001,
+      "name": "TooManyImages",
+      "msg": "Too many images"
+    }
+  ],
+  "types": [
+    {
+      "name": "OriginalityAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "originality_infos",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "OriginalityInfo"
+                }
+              }
+            }
+          },
+          {
+            "name": "image_count",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OriginalityInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "image_hash",
+            "type": "string"
+          },
+          {
+            "name": "originality",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OriginalityStored",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "image_hash",
+            "type": "string"
+          },
+          {
+            "name": "originality",
+            "type": "bool"
+          }
+        ]
+      }
+    }
+  ]
+}

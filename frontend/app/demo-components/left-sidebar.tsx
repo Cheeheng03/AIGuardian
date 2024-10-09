@@ -25,7 +25,7 @@ const navLinks: Readonly<NavLink[]> = [
     linkName: "Explore",
     icon: <ExploreIcon className="h-16 w-16" />,
   },
-  { href: "https://github.com/kens1ang/AIGuardian/tree/master", linkName: "GitHub", icon: <GithubIcon className="h-16 w-16" /> },
+  { href: "https://github.com/Cheeheng03/AIGuardian", linkName: "GitHub", icon: <GithubIcon className="h-16 w-16" /> },
   {
     href: "/#how",
     linkName: "How It Works",
@@ -98,7 +98,7 @@ const LeftSidebar = () => {
         </div>
         <div className="ml-3">
           <p className="font-bold text-white">AI Guardian</p>
-          <p className="text-sm text-gray-500">@0x2c50...6489</p>
+          <p className="text-sm text-gray-500">@aiguardiansolana</p>
         </div>
       </div>
     </aside>

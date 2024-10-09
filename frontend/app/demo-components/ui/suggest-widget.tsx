@@ -15,7 +15,7 @@ export function SuggestWidget(): JSX.Element {
         <div className="ml-3">
           <p className="font-bold text-white">AI Guardian</p>
           <p className="text-sm text-gray-500">
-              @0x2c50...6489
+              @aiguardiansolana
             </p>
         </div>
         <div className="text-blue-500 flex font-bold gap-2 ml-12">

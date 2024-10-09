@@ -36,21 +36,11 @@ const ActionSteps = () => {
           </p>
         </div>
         <div className="w-full sm:w-3/4 md:w-1/2">
+          {/* Add your code visualization component here */}
           <div className="bg-gray-800 p-4 rounded-lg">
-            <div
-              className="h-64 bg-gray-700 rounded-lg cursor-pointer"
-              onClick={() => handleVideoClick("/assets/videos/posting.mp4")}
-            >
-              {isClient && (
-                <video
-                  ref={video1Ref}
-                  src="/assets/videos/posting.mp4"
-                  className="w-full h-full object-cover p-4"
-                  autoPlay
-                  loop
-                  muted
-                />
-              )}
+            {/* Placeholder for code visualization */}
+            <div className="h-64 bg-gray-700 rounded-lg">
+                <img src="/assets/tagging.jpeg" alt="Blockchain" className="w-full h-full object-cover p-4" />
             </div>
           </div>
         </div>

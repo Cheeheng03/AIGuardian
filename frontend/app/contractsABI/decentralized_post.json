@@ -1,0 +1,280 @@
+{
+  "address": "AfCDBjnYCyHh7Hb9YiKx8NVQXA7dFfaaY5yFFF8DabJb",
+  "metadata": {
+    "name": "decentralized_post",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_post",
+      "discriminator": [
+        123,
+        92,
+        184,
+        29,
+        231,
+        24,
+        15,
+        202
+      ],
+      "accounts": [
+        {
+          "name": "post_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "ipfs_hash",
+          "type": "string"
+        },
+        {
+          "name": "image_hash",
+          "type": "string"
+        },
+        {
+          "name": "content",
+          "type": "string"
+        },
+        {
+          "name": "world_id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "get_post",
+      "discriminator": [
+        230,
+        197,
+        144,
+        32,
+        174,
+        89,
+        103,
+        107
+      ],
+      "accounts": [
+        {
+          "name": "post_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "post_id",
+          "type": "u64"
+        }
+      ],
+      "returns": {
+        "defined": {
+          "name": "Post"
+        }
+      }
+    },
+    {
+      "name": "get_posts_descending",
+      "discriminator": [
+        217,
+        167,
+        171,
+        249,
+        200,
+        87,
+        26,
+        179
+      ],
+      "accounts": [
+        {
+          "name": "post_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "limit",
+          "type": "u8"
+        }
+      ],
+      "returns": {
+        "vec": {
+          "defined": {
+            "name": "Post"
+          }
+        }
+      }
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "post_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "PostAccount",
+      "discriminator": [
+        85,
+        236,
+        139,
+        84,
+        240,
+        243,
+        196,
+        23
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "PostCreated",
+      "discriminator": [
+        209,
+        178,
+        232,
+        24,
+        158,
+        92,
+        77,
+        227
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "PostNotFound",
+      "msg": "Post not found"
+    },
+    {
+      "code": 6001,
+      "name": "TooManyPosts",
+      "msg": "Too many posts"
+    }
+  ],
+  "types": [
+    {
+      "name": "Post",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "post_id",
+            "type": "u64"
+          },
+          {
+            "name": "user_address",
+            "type": "string"
+          },
+          {
+            "name": "ipfs_hash",
+            "type": "string"
+          },
+          {
+            "name": "image_hash",
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          },
+          {
+            "name": "world_id",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PostAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "posts",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "Post"
+                }
+              }
+            }
+          },
+          {
+            "name": "next_post_id",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PostCreated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "post_id",
+            "type": "u64"
+          },
+          {
+            "name": "user_address",
+            "type": "string"
+          },
+          {
+            "name": "ipfs_hash",
+            "type": "string"
+          },
+          {
+            "name": "image_hash",
+            "type": "string"
+          },
+          {
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          },
+          {
+            "name": "world_id",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}

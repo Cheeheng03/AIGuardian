@@ -1,0 +1,235 @@
+{
+  "address": "Aqyqt3mnUVMDErUPvQm9e4LDWHHtJKpLXsBhkumbk6L2",
+  "metadata": {
+    "name": "deepfake_storage",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "get_deepfake_value",
+      "discriminator": [
+        115,
+        100,
+        135,
+        192,
+        166,
+        247,
+        121,
+        6
+      ],
+      "accounts": [
+        {
+          "name": "deepfake_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "image_hash",
+          "type": "string"
+        }
+      ],
+      "returns": "u8"
+    },
+    {
+      "name": "get_image_timestamp",
+      "discriminator": [
+        230,
+        42,
+        221,
+        137,
+        193,
+        22,
+        131,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "deepfake_account"
+        }
+      ],
+      "args": [
+        {
+          "name": "image_hash",
+          "type": "string"
+        }
+      ],
+      "returns": "u64"
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "deepfake_account",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "store_image",
+      "discriminator": [
+        241,
+        52,
+        233,
+        196,
+        222,
+        39,
+        210,
+        11
+      ],
+      "accounts": [
+        {
+          "name": "deepfake_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "image_hash",
+          "type": "string"
+        },
+        {
+          "name": "deepfake_value",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "DeepfakeAccount",
+      "discriminator": [
+        156,
+        78,
+        24,
+        214,
+        187,
+        203,
+        100,
+        238
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "ImageAdded",
+      "discriminator": [
+        158,
+        130,
+        1,
+        36,
+        249,
+        134,
+        207,
+        129
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidDeepfakeValue",
+      "msg": "Invalid deepfake value"
+    },
+    {
+      "code": 6001,
+      "name": "ImageNotFound",
+      "msg": "Image not found"
+    },
+    {
+      "code": 6002,
+      "name": "TooManyImages",
+      "msg": "Too many images"
+    }
+  ],
+  "types": [
+    {
+      "name": "DeepfakeAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "image_infos",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "ImageInfo"
+                }
+              }
+            }
+          },
+          {
+            "name": "image_count",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ImageAdded",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "image_hash",
+            "type": "string"
+          },
+          {
+            "name": "deepfake_value",
+            "type": "u8"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ImageInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "image_hash",
+            "type": "string"
+          },
+          {
+            "name": "deepfake_value",
+            "type": "u8"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}
